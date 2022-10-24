@@ -10,3 +10,4 @@
 - [90DaysOfDevOps 中文版本](https://github.com/MichaelCade/90DaysOfDevOps/blob/main/zh_cn/README.md)
 - [docker-compose-files](https://github.com/yeasy/docker-compose-files)
 - [kafka-stack-docker-compose](https://github.com/conduktor/kafka-stack-docker-compose)
+- [运维脚本](https://gitee.com/YunWeiJiaoBen)
