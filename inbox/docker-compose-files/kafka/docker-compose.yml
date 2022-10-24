@@ -1,0 +1,41 @@
+version: '3'
+services:
+   zookeeper: 
+     image: wurstmeister/zookeeper:3.4.6 
+     volumes: 
+      - ./zookeeper_data:/opt/zookeeper-3.4.6/data 
+     container_name: zookeeper
+     ports: 
+      - "2181:2181"
+     restart: always
+
+   kafka: 
+     image: wurstmeister/kafka 
+     container_name: kafka
+     depends_on: 
+      - zookeeper 
+     ports: 
+      - "9092:9092" 
+     volumes: 
+      - ./kafka_log:/kafka 
+     environment: 
+      - KAFKA_BROKER_NO=0 
+      - KAFKA_BROKER_ID=0 
+      - KAFKA_LISTENERS=PLAINTEXT://kafka:9092           # kafka tcp 侦听的ip
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://替换为服务器的IP:9092    # kafka broker侦听的ip
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT 
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 
+      - KAFKA_HEAP_OPTS=-Xmx512M -Xms16M
+     restart: always
+
+   kafka_manager: 
+     image: sheepkiller/kafka-manager 
+     container_name: kafka-manager 
+     ports: 
+      - "9000:9000" 
+     environment: 
+      - ZK_HOSTS=zookeeper:2181 
+     depends_on: 
+      - zookeeper 
+      - kafka 
+     restart: always
