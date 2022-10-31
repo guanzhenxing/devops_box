@@ -87,3 +87,85 @@ yum clean { all | package | headers }
 yum makecache
 ```
 
+## 查看服务器基本信息
+
+### 查看当前内核系统版本信息
+cat /proc/version
+
+### 查看操作系统版本信息 (使用命令时提示 command not found, 需要安装 redhat-lsb)
+lsb_release -a
+
+
+## 开关防火墙
+在 RHEL7 里有几种防火墙共存：
+- firewalld
+- iptables
+- ebtables
+
+默认是使用 firewalld 来管理 netfilter 子系统，不过底层调用的命令仍然是 iptables 等
+
+Firewalld 与 iptables 对比更自由、更人性化
+
+### 查看 firewalld 状态
+systemctl status firewalld
+
+### 策略启停 firewalld
+
+#### 启动
+systemctl start firewalld
+
+#### 停止
+systemctl stop firewalld
+
+### 开机启用 / 禁用
+
+#### 启用
+systemctl enable firewalld
+
+#### 禁用
+systemctl disable firewalld
+
+### 查看默认域中的火墙
+firewall-cmd --list-all
+
+### 启 / 停、重启一个firewalld服务
+
+#### 启动
+systemctl start firewalld.service
+
+#### 关闭
+systemctl stop firewalld.service
+
+#### 重启一个服务
+systemctl restart firewalld.service
+
+### 显示一个firewalld服务的状态
+systemctl status firewalld.service
+
+### 是否开机自启
+
+#### 查看服务是否开机启动
+systemctl is-enabled firewalld.service
+
+#### 查看已启动的服务列表
+systemctl list-unit-files|grep enabled
+
+#### 查看启动失败的服务列表
+systemctl --failed
+
+#### 开机自启
+systemctl enable firewalld.service
+
+#### 禁止开机自启
+systemctl disable firewalld.service
+
+### 查看端口开放情况
+firewall-cmd --list-port
+如果提示FirewallD is not running，说明防火墙处于关闭状态
+
+### 防火墙开启状态下开放端口
+firewall-cmd --zone=public --add-port=3334/tcp --permanent
+
+### 重启firewall
+firewall-cmd --reload
+
