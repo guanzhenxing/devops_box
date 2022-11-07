@@ -12,3 +12,7 @@
 - [kafka-stack-docker-compose](https://github.com/conduktor/kafka-stack-docker-compose)
 - [运维脚本](https://gitee.com/YunWeiJiaoBen)
 https://mp.weixin.qq.com/s/eZm1Xn5KmGaqKvu8k-hn2g
+
+https://aoarasi.com/archives/onekey
+https://aoarasi.com/archives/shell
+https://aoarasi.com/archives/034
